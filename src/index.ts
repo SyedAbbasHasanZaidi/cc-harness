@@ -3,6 +3,8 @@ import { Command } from 'commander'
 import { installCommand } from './commands/install.js'
 import { useCommand } from './commands/use.js'
 import { unlinkCommand } from './commands/unlink.js'
+import { listCommand, printList } from './commands/list.js'
+import { diffCommand, printDiff } from './commands/diff.js'
 import { logger } from './utils/logger.js'
 
 const program = new Command()
@@ -57,15 +59,27 @@ program
 program
   .command('list')
   .description('List all installed harnesses')
-  .action(() => {
-    console.log('[list] not yet implemented')
+  .action(async () => {
+    try {
+      const result = await listCommand()
+      printList(result)
+    } catch (err) {
+      logger.error(err instanceof Error ? err.message : String(err))
+      process.exit(1)
+    }
   })
 
 program
   .command('diff <name>')
   .description('Show what activating a harness would change')
-  .action((name: string) => {
-    console.log(`[diff] not yet implemented — name: ${name}`)
+  .action(async (name: string) => {
+    try {
+      const result = await diffCommand(name)
+      printDiff(result)
+    } catch (err) {
+      logger.error(err instanceof Error ? err.message : String(err))
+      process.exit(1)
+    }
   })
 
 program
