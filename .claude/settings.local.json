@@ -5,7 +5,12 @@
       "Bash(git init *)",
       "Bash(git checkout *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(npm run *)",
+      "Bash(node dist/index.js --help)",
+      "Bash(node dist/index.js install test-pkg)",
+      "Bash(npm test *)",
+      "Bash(npm whoami *)"
     ]
   }
 }
