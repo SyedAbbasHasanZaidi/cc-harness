@@ -1,0 +1,11 @@
+{
+  "name": "cc-sample-harness",
+  "version": "0.1.0",
+  "description": "Minimal reference harness for cc-harness tool authors",
+  "author": "@cc-harness",
+  "files": {
+    "commands": "commands/",
+    "skills": "skills/"
+  },
+  "claude_md_block": "claude-block.md"
+}
