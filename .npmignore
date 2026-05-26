@@ -1,0 +1,6 @@
+tests/
+.claude/
+*.map
+tsup.config.ts
+tsconfig.json
+vitest.config.ts

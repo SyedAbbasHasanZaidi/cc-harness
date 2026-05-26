@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from 'commander'
 import { installCommand } from './commands/install.js'
 import { useCommand } from './commands/use.js'

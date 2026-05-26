@@ -7,6 +7,9 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   jsx: 'transform',
+  banner: {
+    js: '#!/usr/bin/env node',
+  },
   esbuildOptions(options) {
     options.jsx = 'transform'
     options.jsxFactory = 'React.createElement'
