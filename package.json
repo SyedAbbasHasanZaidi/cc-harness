@@ -4,8 +4,13 @@
   "description": "Package manager and activation layer for Claude Code harnesses",
   "type": "module",
   "bin": {
-    "cc-harness": "./dist/index.js"
+    "cc-harness": "dist/index.js"
   },
+  "files": [
+    "dist/",
+    "sample-harness/",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
