@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 import { installCommand } from './commands/install.js'
+import { useCommand } from './commands/use.js'
+import { unlinkCommand } from './commands/unlink.js'
 import { logger } from './utils/logger.js'
 
 const program = new Command()
@@ -24,15 +26,32 @@ program
 program
   .command('use <name>')
   .description('Activate a harness for the current project')
-  .action((name: string) => {
-    console.log(`[use] not yet implemented — name: ${name}`)
+  .action(async (name: string) => {
+    try {
+      const result = await useCommand(name)
+      if (result.claudeMdAction === 'print-block' && result.claudeMdBlock) {
+        logger.warn('CLAUDE.md already exists — paste this block into it manually:\n')
+        console.log(result.claudeMdBlock)
+      }
+    } catch (err) {
+      logger.error(err instanceof Error ? err.message : String(err))
+      process.exit(1)
+    }
   })
 
 program
   .command('unlink')
   .description('Deactivate the current project harness')
-  .action(() => {
-    console.log('[unlink] not yet implemented')
+  .action(async () => {
+    try {
+      const result = await unlinkCommand()
+      if (result.claudeMdAction === 'print-instructions' && result.claudeMdInstructions) {
+        logger.warn(result.claudeMdInstructions)
+      }
+    } catch (err) {
+      logger.error(err instanceof Error ? err.message : String(err))
+      process.exit(1)
+    }
   })
 
 program
