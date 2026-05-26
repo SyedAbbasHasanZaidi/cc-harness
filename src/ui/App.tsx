@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Text, useInput, useApp } from 'ink'
+import { Box, Text, useInput, useApp, useStdout } from 'ink'
 import { HarnessList } from './HarnessList.js'
 import { HarnessDetail } from './HarnessDetail.js'
 import { ConfirmPrompt } from './ConfirmPrompt.js'
@@ -35,8 +35,13 @@ function countFiles(dir: string): Promise<number> {
     .catch(() => 0)
 }
 
+const MIN_WIDTH = 60
+
 export function App(): React.ReactElement {
   const { exit } = useApp()
+  const { stdout } = useStdout()
+  const terminalWidth = stdout?.columns ?? 80
+  const isNarrow = terminalWidth < MIN_WIDTH
 
   const [state, setState] = useState<AppState>({
     harnesses: [],
@@ -255,8 +260,8 @@ export function App(): React.ReactElement {
         <Text color={theme.muted}>{' · '}{projectLabel}</Text>
       </Box>
 
-      {/* Main panels */}
-      <Box flexDirection="row">
+      {/* Main panels — single column when narrow */}
+      <Box flexDirection={isNarrow ? 'column' : 'row'}>
         <HarnessList
           harnesses={state.harnesses}
           selectedIndex={state.selectedIndex}
