@@ -5,6 +5,7 @@ import { useCommand } from './commands/use.js'
 import { unlinkCommand } from './commands/unlink.js'
 import { listCommand, printList } from './commands/list.js'
 import { diffCommand, printDiff } from './commands/diff.js'
+import { uiCommand } from './commands/ui.js'
 import { logger } from './utils/logger.js'
 
 const program = new Command()
@@ -85,8 +86,13 @@ program
 program
   .command('ui')
   .description('Launch the interactive TUI')
-  .action(() => {
-    console.log('[ui] not yet implemented')
+  .action(async () => {
+    try {
+      await uiCommand()
+    } catch (err) {
+      logger.error(err instanceof Error ? err.message : String(err))
+      process.exit(1)
+    }
   })
 
 program.parse()
