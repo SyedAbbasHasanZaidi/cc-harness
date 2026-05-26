@@ -1,5 +1,5 @@
 {
-  "name": "cc-harness",
+  "name": "claude-harness-manager",
   "version": "0.1.0",
   "description": "Package manager and activation layer for Claude Code harnesses",
   "type": "module",
