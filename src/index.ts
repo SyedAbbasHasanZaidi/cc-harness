@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
+import { installCommand } from './commands/install.js'
+import { logger } from './utils/logger.js'
 
 const program = new Command()
 program
@@ -10,8 +12,13 @@ program
 program
   .command('install <source>')
   .description('Install a harness from npm package name or local path')
-  .action((source: string) => {
-    console.log(`[install] not yet implemented — source: ${source}`)
+  .action(async (source: string) => {
+    try {
+      await installCommand(source)
+    } catch (err) {
+      logger.error(err instanceof Error ? err.message : String(err))
+      process.exit(1)
+    }
   })
 
 program
